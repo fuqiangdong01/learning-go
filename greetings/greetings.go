@@ -3,7 +3,7 @@ package greetings
 import (
 	"errors"
 	"fmt"
-  "math/rand"
+	"math/rand"
 )
 
 func Hello(name string) (string, error) {
@@ -15,13 +15,25 @@ func Hello(name string) (string, error) {
 	return message, nil
 }
 
-func randomFormat() string {
-  formats := []string{
-    "Hi, %v. Welcome!",
-    "Greate to see you, %v!",
-    "Hail, %v! Well met!",
-  }
+func Hellos(names []string) (map[string]string, error) {
+	messages := make(map[string]string)
+	for _, name := range names {
+		message, err := Hello(name)
+		if err != nil {
+			return nil, err
+		}
 
-  return formats[rand.Intn(len(formats))]
+		messages[name] = message
+	}
+	return messages, nil
 }
 
+func randomFormat() string {
+	formats := []string{
+		"Hi, %v. Welcome!",
+		"Greate to see you, %v!",
+		"Hail, %v! Well met!",
+	}
+
+	return formats[rand.Intn(len(formats))]
+}
